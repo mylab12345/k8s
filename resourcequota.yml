@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: kkquota
+
+spec:
+  hard:
+    limits.cpu: "800m"
+    limits.memory: "400M"
+    requests.cpu: "200m"
+    requests.memory: "200M"

@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: emptydir-test
+spec:
+  containers:
+  - name: ubuntu-container
+    image: ubuntu:22.04
+    command: ["/bin/bash", "-c"]
+    args:
+      - |
+        echo "Starting Ubuntu container...";
+        apt-get update && apt-get install -y curl;
+        echo "<h1>Served from shared volume</h1>" > /shared/index.html;
+        echo "File written to /shared/index.html";
+        sleep 3600
+    volumeMounts:
+      - name: shared-data
+        mountPath: /shared
+
+  - name: httpd-container
+    image: httpd:2.4
+    ports:
+      - containerPort: 80
+    volumeMounts:
+      - name: shared-data
+        mountPath: /usr/local/apache2/htdocs
+
+  volumes:
+  - name: shared-data
+    emptyDir: {}

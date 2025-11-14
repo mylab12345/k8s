@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-deploy
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      objtype: deployment
+  template:
+    metadata:
+      name: testpod
+      labels:
+        objtype: deployment
+
+    spec:
+      containers:
+        - name: c00
+          image: ubuntu
+          command: ["/bin/bash", "-c", "while true; do echo Hello Shivu; sleep 3; done"]
+ 
+          resources:
+            requests:
+              cpu: "200m"
+
+

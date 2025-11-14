@@ -1,0 +1,18 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: resources
+
+spec:
+  containers:
+    - name: resource
+      image: ubuntu
+      command: ["/bin/bash", "-c", "while true; do echo Hello-Shivu; sleep 2; done"]
+
+      resources:
+        requests:
+          memory: 120Mi
+          cpu: 200m
+        limits:
+          memory: 200Mi
+          cpu: 300m
